@@ -8,22 +8,26 @@ REQUIREMENTS:
 
 INSTALLATION:
 1. Clone the repository
-2. Enable the virtual environment(tg_mail directory). Or create your own one with command python -m venv <venv_name>. Activate it by running start bin/activate. Then install the required libs with: pip install <library_name>
-3. Start program:
-python telegram_app.py <task> <stopputin_dataset>
+2. pip install -r requirements.txt
+3. Add your api key in telegram_app.py
+4. Create a telegram session with create_session.py (for example: python create_session.py +123422353 0123432 thisIsk1ndaHasH#$%1023123 )
+5. Start program:
+python telegram_app.py <task> <stopputin_dataset> [<telegram group_id>]
 
   Possible tasks:
   - spam
   - parse
-  - group(In development)
+  - group
   - count
 
 <stopputin_dataset> example is provided here: Data/stopputin260420.html
 
-So the eventual example command would be:
+So the eventual example commands look like be:
   
   python telegram_app.py parse Data/stopputin260420.html
-
+  python telegram_app.py spam Data/stopputin260420.html
+  python telegram_app.py count Data/stopputin260420.html
+  python telegram_app.py group Data/stopputin260420.html 12332432
   
 PROJECT STRUCTURE:
   - telegram_app.py contains all the functions. It is the main script.
