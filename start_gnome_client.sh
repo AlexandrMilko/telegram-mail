@@ -1,9 +1,9 @@
 #!/bin/bash
 PHONE=$1
 TASK=$2
-SECONDS_TO_CLOSE=10
+SECONDS_TO_CLOSE=100
 echo "BASH: $PHONE - client phone number(session)"
-echo "BASH: $TASK - the task of the client. (Whether spam of parse)"
+echo "BASH: $TASK - the task of the client."
 
 if [ "$TASK"=="parse" ]
 then
@@ -22,7 +22,8 @@ then
 elif [ "$TASK"=="group" ]
 then
   PROTESTS_FILE=$3
-  python create_client_window.py $PHONE $TASK $PROTESTS_FILE
+  GROUP=$4
+  python create_client_window.py $PHONE $TASK $PROTESTS_FILE $GROUP
 fi
 
 echo "BASH: FINISHED PARSING"
@@ -31,4 +32,3 @@ do
 	echo "BASH: ${SEC}/$SECONDS_TO_CLOSE seconds to be closed"
 	sleep 1
 done
-sleep 100

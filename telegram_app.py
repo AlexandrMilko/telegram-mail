@@ -202,8 +202,8 @@ def client_spam(client, phone, protests_df): #IMPORTANT: protests_df is file wit
             for id in ids:
                 if not client.get_messages(id, limit=10):
                     try:
-                        result = client(SaveDraftRequest(peer=id, message=message, no_webpage=True))
-                        # client.send_message(id, message)
+                        #result = client(SaveDraftRequest(peer=id, message=message, no_webpage=True))
+                        client.send_message(id, message)
 
                         people_count += 1
                         print("INFO: Sent message to", id)
@@ -229,14 +229,15 @@ def client_spam(client, phone, protests_df): #IMPORTANT: protests_df is file wit
                         logging.error(f"ERROR(ln188): , {e}")
     return logs
 
-def create_groups(): #IMPORTANT! BETA VERSION
+def add_to_group(group): #IMPORTANT! BETA VERSION
     task = "group"
+    script = os.path.join(os.getcwd(), sh_start_script)
     for phone in accounts.keys():
         os.system(
-            f"gnome-terminal -x /home/aleksandr/Desktop/telegram_mailing/scripts_and_data/{sh_start_script} {phone} {task} {PROTESTS_FILE}")
+            f"gnome-terminal -x {script} {phone} {task} {PROTESTS_FILE} {group}")
         time.sleep(5)
 
-def client_create_group(client, phone, protests_df):
+def client_add_to_group(client, phone, protests_df, group):
     logs = []
     client.connect()
     people_count = 0
@@ -255,7 +256,7 @@ def client_create_group(client, phone, protests_df):
                     print(i, "AddChatREQUESTS HAVE BEEN SENT ALREADY")
                     try:
                         result = client(functions.messages.AddChatUserRequest(
-                            chat_id=617746958,
+                            chat_id=int(group),
                             user_id=id,
                             fwd_limit=42
                         ))
@@ -379,4 +380,5 @@ if __name__ == "__main__":
         protests_df = create_dataframe_stopputin(PROTESTS_FILE)
         print("NUMBER OF PARSED IDS: ", count_parsed_ids(protests_df))
     elif TASK == 'group':
-        create_groups()
+        group = sys.argv[3]
+        add_to_group(group)

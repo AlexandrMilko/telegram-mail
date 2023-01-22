@@ -1,19 +1,24 @@
 import os
 from telethon import TelegramClient
-from telegram_app import accounts, client_spam, client_parse_cities, create_dataframe_stopputin, get_divided_work, client_create_group
+from telegram_app import accounts, client_spam, client_parse_cities, create_dataframe_stopputin, get_divided_work, client_add_to_group
 import sys
 import pandas as pd
 
 #INITIALIZING PARAMETERS
-# FORMAT: python create_client_window.py <phone> <task> [<split_n> <work_part>]
+# FORMAT: python create_client_window.py <phone> <task> [<split_n> <work_part>] [group]
 client_phone = sys.argv[1]
 task = sys.argv[2] # "spam" / "parse" / "group"
 if task == "parse":
     split_n = int(sys.argv[3])
     work_part = int(sys.argv[4])
     PROTESTS_FILE = sys.argv[5]
-elif task == "spam" or task == "group":
+elif task == "spam":
     PROTESTS_FILE = sys.argv[3]
+    split_n = None
+    work_part = None
+elif task == "group":
+    PROTESTS_FILE = sys.argv[3]
+    group = sys.argv[4]
     split_n = None
     work_part = None
 cwd = os.getcwd()
@@ -32,5 +37,5 @@ if __name__ == "__main__":
         elif task == "spam":
             client_spam(client, client_phone, stopputin_df)
         elif task == "group":
-            client_create_group(client, client_phone, stopputin_df)
+            client_add_to_group(client, client_phone, stopputin_df, group)
     except Exception as e: print("\nWARNING: ", e, "\n")
