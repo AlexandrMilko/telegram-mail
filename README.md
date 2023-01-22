@@ -19,6 +19,7 @@ python telegram_app.py <task> <stopputin_dataset> [<telegram group_id>]
   - parse
   - group
   - count
+  - triangulate (I have not added this as a separate instruction. But you can use the triangulate_from_coords func manually)
 
 <stopputin_dataset> example is provided here: Data/stopputin260420.html
 
